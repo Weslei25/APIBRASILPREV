@@ -14,12 +14,7 @@ class ClienteModel(models.Model):
 
     class Meta:
         verbose_name = 'Cliente'
-        db_table = 'Clientes'
+        db_table = 'clientes'
 
     def __str__(self):
         return self.self.id
-
-    def create(self, request, **kwargs):
-        station_id = kwargs['station_id']
-        availability_data = request.data
-        return super().create(request)
