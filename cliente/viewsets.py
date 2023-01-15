@@ -11,6 +11,7 @@ from django.http import HttpResponse, Http404, JsonResponse
 
 class ClienteViewSet(viewsets.ModelViewSet):
 
+    #Somente visualização
     def create(self, request, *args, **kwargs):
         if request.method not in permissions.SAFE_METHODS:
             return Response(data={"Error":f"Method '#{request.method}#' not allowed."}, status=status.HTTP_401_UNAUTHORIZED)
