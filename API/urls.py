@@ -6,6 +6,7 @@ from django.views.generic import RedirectView
 
 
 from cliente.views import CadastrarClienteView
+from produto.views import CadastrarProdutoView
 
 from rest_framework import permissions
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -16,27 +17,31 @@ from drf_yasg import openapi
   
 schema_view = get_schema_view(
    openapi.Info(
-      title="API integration SEFAZ",
+      title="API BRASILPREV",
       default_version='v1',
-      description="Essa API disponibiliza os documentos emitidos contra o CPF ou CNPJ do contribuinte.",
+      description="",
       terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contato@wjsolucoes.com.br"),
+      contact=openapi.Contact(email=""),
       license=openapi.License(name="BSD License"),
    ),
    public=False,
    permission_classes=(permissions.AllowAny,),
 )
 
-app_name = "Api Notas"
+app_name = "API BRASILPREV"
+
 urlpatterns = [
    
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='api/', permanent=True)),
-    path('api/clientes/', include('cliente.urls')),
+    path('api/cliente/', include('cliente.urls')),
+    path('api/produto/', include('produto.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api-auth/token/', TokenObtainPairView.as_view()),
     path('api-auth/token/refresh', TokenRefreshView.as_view()),
-    path(r'api/cadastrar_cliente',CadastrarClienteView.as_view(), name='download'),
+    #path(r'api/cadastrar_cliente',CadastrarClienteView.as_view(), name='cliente'),
+    #path(r'api/cadastrar_produto/',include('produto.urls')),
+    #path(r'api/cadastrar_produto',CadastrarProdutoView.as_view(), name='produto'),
 
     path(r'playground/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path(r'docs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
@@ -45,6 +50,6 @@ urlpatterns = [
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-admin.site.site_header = 'Api Notas'                   
-admin.site.index_title = 'Api Notas'                 
-admin.site.site_title = 'Api Notas'
+admin.site.site_header = 'API BRASILPREV'        
+admin.site.index_title = 'API BRASILPREV'                 
+admin.site.site_title  = 'API BRASILPREV'
