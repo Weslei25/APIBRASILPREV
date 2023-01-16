@@ -136,6 +136,7 @@ class ResgateViewSet(viewsets.ModelViewSet):
             return JsonResponse(data={"erro":"Carencia em vigor",
                                       "carencia":carencia}, status=status.HTTP_401_UNAUTHORIZED)
 
+        #Deve ser validado o saldo do plano em relação ao valor resgatado
         if json_data['valorResgate'] > verificate_plano['aporte']:
             return JsonResponse(data={"erro":"Valor solicitado excede o limite",
                                       "valorTotal":verificate_plano['aporte']}, status=status.HTTP_401_UNAUTHORIZED)
