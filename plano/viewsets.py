@@ -4,12 +4,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 
-from plano.serializeres import PlanoSerializer, AporteExtraSerializer
-from plano.models import PlanoModel, ClienteModel, ProdutoModel, AporteExtraModel
+from plano.serializeres import PlanoSerializer, AporteExtraSerializer, ResgateSerializer
+from plano.models import PlanoModel, ClienteModel, ProdutoModel, AporteExtraModel, ResgateModel
 
 import json
-from datetime import date
-from django.http import HttpResponse, Http404, JsonResponse
+from datetime import date, timedelta
+from django.http import HttpResponse, Http404, JsonResponse, HttpResponseNotFound
 
 class PlanoViewSet(viewsets.ModelViewSet):
     #As regras da contratação como valor de aporte, idade mínima de entrada e saída etc., devem ser levadas em consideração.
@@ -113,6 +113,50 @@ class AporteExtraViewSet(viewsets.ModelViewSet):
         
     queryset = AporteExtraModel.objects.all()
     serializer_class = AporteExtraSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ResgateViewSet(viewsets.ModelViewSet):
+
+    def create(self, request, *args, **kwargs):
+
+        json_data = json.loads(request.body)
+
+        try:
+            verificate_plano = PlanoModel.objects.filter(id=json_data["plano"]).values()[0]
+            verificate_prod = ProdutoModel.objects.filter(id=verificate_plano['produto_id']).values()[0]
+        except IndexError:
+            return JsonResponse(data={"erro":"Nenhuma informação encontrada"},status=status.HTTP_401_UNAUTHORIZED)
+
+        carencia = date.today()
+        td = timedelta(verificate_prod['carenciaInicialDeResgate'])
+        data_possivel = carencia + td
+        
+        #Devem ser validados os prazos de carência para resgate
+        if data_possivel < date.today():
+            return JsonResponse(data={"erro":"Carencia em vigor",
+                                      "carencia":carencia}, status=status.HTTP_401_UNAUTHORIZED)
+
+        if json_data['valorResgate'] > verificate_plano['aporte']:
+            return JsonResponse(data={"erro":"Valor solicitado excede o limite",
+                                      "valorTotal":verificate_plano['aporte']}, status=status.HTTP_401_UNAUTHORIZED)
+        resgate = ResgateModel(
+                        plano=PlanoModel.objects.get(id=json_data['plano']),
+                        valorResgate=json_data['valorResgate']
+                        )
+        
+        resgate.save(force_insert=True)
+
+        #Atualiza tabela de planos
+        aporte = float(verificate_plano['aporte'])
+        valorResgate = float(json_data['valorResgate'])
+        aport_update = aporte - valorResgate
+
+        PlanoModel.objects.filter(id=json_data['plano']).update(aporte=aport_update)
+
+        return JsonResponse(data={"id":"{}".format((resgate.pk))}, status=status.HTTP_201_CREATED)
+
+    queryset = ResgateModel.objects.all()
+    serializer_class = ResgateSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 def calculateAge(birthDate): 
