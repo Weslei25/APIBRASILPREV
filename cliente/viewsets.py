@@ -1,8 +1,6 @@
 from rest_framework import permissions
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.decorators import action
 
 from cliente.serializeres import ClienteSerializer
 from cliente.models import ClienteModel
@@ -12,16 +10,18 @@ import json
 
 class ClienteViewSet(viewsets.ModelViewSet):
 
-    #Somente visualização
+    #O metodo create não é permitido
     def create(self, request, *args, **kwargs):
         return Response(data={"Error":f"Method '#{request.method}#' not allowed."}, status=status.HTTP_401_UNAUTHORIZED)
 
+    #O metodo update não é permitido
     def update(self, request, *args, **kwargs):
         return Response(data={"Error":f"Method '#{request.method}#' not allowed."}, status=status.HTTP_401_UNAUTHORIZED)
     
+    #O metodo destroy não é permitido
     def destroy(self, request, *args, **kwargs):
         return Response(data={"Error":f"Method '#{request.method}#' not allowed."}, status=status.HTTP_401_UNAUTHORIZED)
-
+    
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
     
@@ -41,9 +41,11 @@ class CadastrarClienteViewSet(viewsets.ModelViewSet):
         data = {"id":"{}".format(serializado.id)}
         return JsonResponse(data=data, status=status.HTTP_201_CREATED)
 
+    #O metodo update não é permitido
     def update(self, request, *args, **kwargs):
         return Response(data={"Error":f"Method '#{request.method}#' not allowed."}, status=status.HTTP_401_UNAUTHORIZED)
     
+    #O metodo destroy não é permitido
     def destroy(self, request, *args, **kwargs):
         return Response(data={"Error":f"Method '#{request.method}#' not allowed."}, status=status.HTTP_401_UNAUTHORIZED)
 

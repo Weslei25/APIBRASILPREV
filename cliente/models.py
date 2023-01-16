@@ -16,4 +16,4 @@ class ClienteModel(models.Model):
         db_table = 'clientes'
 
     def __str__(self):
-        return self.self.id
+        return self.nome
