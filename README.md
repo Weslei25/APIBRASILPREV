@@ -3,8 +3,13 @@ Desenvolvido por Weslei Santos de Jesus
 
 # O projeto é multplataforma porém partimos do peincipio que iremos sempre executar uma API em um servidor Linux seja em algum cloud ou local, lembrando que vamos virtualizar com a ajuda do Docker.
 
-python3 -m venv .venv   
-source .venv/bin/activate
+python3 -m venv venv  
+source venv/bin/activate
+
+Se for Windows python -m venv venv   
+python -m venv venv  
+venv\Scripts\activate
+
 
 # Ambiente ativado vamos as dependencias
 ``` 
@@ -34,3 +39,9 @@ docker-compose exec web python3 manage.py migrate
 
 ``` 
 docker-compose exec web python3 manage.py createsuperuse
+``` 
+Depois disso so testar a API
+
+# Testes 
+
+docker-compose exec web python3 manage.py test
