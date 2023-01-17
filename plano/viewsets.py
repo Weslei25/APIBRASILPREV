@@ -19,7 +19,11 @@ class PlanoViewSet(viewsets.ModelViewSet):
         json_data = json.loads(request.body)
 
         #Não será possível contratar um produto com prazo de venda expirado.
-        verificate_data = ProdutoModel.objects.filter(id=json_data["produto"]).values()[0]
+        try:
+            verificate_data = ProdutoModel.objects.filter(id=json_data["produto"]).values()[0]
+            verificate_cliente = ClienteModel.objects.filter(id=json_data["cliente"]).values()[0]
+        except Exception:
+            return JsonResponse(data={"erro":"Nenhuma informação encontrada"},status=status.HTTP_401_UNAUTHORIZED)
 
         expiracaoDeVenda = verificate_data['expiracaoDeVenda']
         if expiracaoDeVenda < date.today():
@@ -30,8 +34,6 @@ class PlanoViewSet(viewsets.ModelViewSet):
         if json_data['aporte'] < valorMinimoAporteInicial:
             return JsonResponse(data={"erro":"Valor minimo não atingido",
                                       "valor":valorMinimoAporteInicial}, status=status.HTTP_402_PAYMENT_REQUIRED)
-
-        verificate_cliente = ClienteModel.objects.filter(id=json_data["cliente"]).values()[0]
 
         dataDeNascimento = verificate_cliente['dataDeNascimento']
 
@@ -74,8 +76,12 @@ class AporteExtraViewSet(viewsets.ModelViewSet):
         json_data = json.loads(request.body)
 
         #Deve ser validado o valor mínimo de aporte extra do produto.
-        verificate_aport = PlanoModel.objects.filter(id=json_data["plano"]).values()[0]
-        verificate_aport_prod = ProdutoModel.objects.filter(id=verificate_aport['produto_id']).values()[0]
+        try:
+            verificate_aport = PlanoModel.objects.filter(id=json_data["plano"]).values()[0]
+            verificate_aport_prod = ProdutoModel.objects.filter(id=verificate_aport['produto_id']).values()[0]
+        except Exception:
+            return JsonResponse(data={"erro":"Nenhuma informação encontrada"},status=status.HTTP_401_UNAUTHORIZED)
+
         valorMinimoAporteExtra = verificate_aport_prod['valorMinimoAporteExtra']
 
         if json_data['valorAporte'] < valorMinimoAporteExtra:
@@ -124,7 +130,7 @@ class ResgateViewSet(viewsets.ModelViewSet):
         try:
             verificate_plano = PlanoModel.objects.filter(id=json_data["plano"]).values()[0]
             verificate_prod = ProdutoModel.objects.filter(id=verificate_plano['produto_id']).values()[0]
-        except IndexError:
+        except Exception:
             return JsonResponse(data={"erro":"Nenhuma informação encontrada"},status=status.HTTP_401_UNAUTHORIZED)
 
         carencia = date.today()
