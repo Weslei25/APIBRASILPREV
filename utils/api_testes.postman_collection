@@ -1,0 +1,362 @@
+{
+	"info": {
+		"_postman_id": "69f0b5a2-b455-4d0f-bb92-7aaa655ca197",
+		"name": "DESAFIL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21974364"
+	},
+	"item": [
+		{
+			"name": "Cliente",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/cliente/show_clientes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"cliente",
+						"show_clientes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api-auth/token/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-auth",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produto",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjczOTIwMjYyLCJpYXQiOjE2NzM5MTk5NjIsImp0aSI6IjQ2MzdkY2FhZjVmZTRkYjliNDU4Njc1YTBhZDhlZDNlIiwidXNlcl9pZCI6MX0.WnpgR-ZTy75kDzmI6PjDmnuFNmw51P_C47RdJ1aFg1M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"nome\": \"Brasilprev Longo Prazo\",\r\n\"susep\": \"15414.900840/2018-17\",\r\n\"expiracaoDeVenda\": \"2021-01-01\",\r\n\"valorMinimoAporteInicial\":\"5.000\",\r\n\"valorMinimoAporteExtra\": \"5.000\", \r\n\"idadeDeEntrada\": 18, \r\n\"idadeDeSaida\": 60,\r\n\"carenciaInicialDeResgate\": 60, \r\n\"carenciaEntreResgates\": 30 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/produto/show_produtos/efef1403-70e6-4563-8c4c-058f221a311e/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"produto",
+						"show_produtos",
+						"efef1403-70e6-4563-8c4c-058f221a311e",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"12345678912\",\r\n    \"nome\": \"Weslei\",\r\n    \"sexo\": \"M\",\r\n    \"email\": \"wesleisantos25@gmail.com\",\r\n    \"dataDeNascimento\": \"2023-01-14\",\r\n    \"rendaMensal\": \"5.000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/cliente/cadastrar/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"cliente",
+						"cadastrar",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUTO",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"nome\": \"Brasilprev Longo Prazo\",\r\n\"susep\": \"15414.900840/2018-17\",\r\n\"expiracaoDeVenda\": \"2023-01-16\",\r\n\"valorMinimoAporteInicial\": 2899.5,\r\n\"valorMinimoAporteExtra\":  2899.5, \r\n\"idadeDeEntrada\": 18, \r\n\"idadeDeSaida\": 60,\r\n\"carenciaInicialDeResgate\": 60, \r\n\"carenciaEntreResgates\": 30 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/produto/cadastrar/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"produto",
+						"cadastrar",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PLANO",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjczOTIwMjYyLCJpYXQiOjE2NzM5MTk5NjIsImp0aSI6IjQ2MzdkY2FhZjVmZTRkYjliNDU4Njc1YTBhZDhlZDNlIiwidXNlcl9pZCI6MX0.WnpgR-ZTy75kDzmI6PjDmnuFNmw51P_C47RdJ1aFg1M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{   \r\n    \"aporte\": 5000.000,\r\n    \"dataDaContratacao\":\"2022-04-05\",\r\n    \"cliente\": \"c7c1c70d-6479-4b90-80d5-dad33e7af732\",\r\n    \"produto\": \"7055152d-82b0-407e-bc94-d625714cbd21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/plano/contratar_plano/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"plano",
+						"contratar_plano",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "APORT_EXTRA",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"cliente\": \"c7c1c70d-6479-4b90-80d5-dad33e7af732\",\r\n\"plano\": \"1cd4a8222d5446338b0459abdc3ae231\",\r\n\"valorAporte\": 28779.5\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/plano/aporte_extra/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"plano",
+						"aporte_extra",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RESGATE",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"plano\": \"2e10d7fb9d244268b650c0a59bfc7406\",\r\n\"valorResgate\": 1000.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/plano/resgate/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"plano",
+						"resgate",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
