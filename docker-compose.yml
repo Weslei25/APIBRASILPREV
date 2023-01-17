@@ -29,6 +29,10 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+
+networks:
+    djangonetwork:
+        driver: bridge
 volumes:
   postgres_data:
   pgadmin-data:
