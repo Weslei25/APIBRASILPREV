@@ -1,7 +1,7 @@
 Desenvolvido por Weslei Santos de Jesus 
 ## Subindo o projeto
 
-# O projeto é multplataforma porém partimos do peincipio que iremos sempre executar uma API em um servidor Linux seja em algum cloud ou local, lembrando que vamos virtualizar com a ajuda do Docker.
+# O projeto é multplataforma porém partimos do principio que iremos sempre executar uma API em um servidor Linux seja em algum cloud ou local, lembrando que vamos virtualizar com a ajuda do Docker.
 
 python3 -m venv venv  
 source venv/bin/activate
